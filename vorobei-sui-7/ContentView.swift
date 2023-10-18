@@ -20,6 +20,7 @@ struct ContentView: View {
                             Image(systemName: "arrowshape.left.fill")
                             Text("Back")
                                 .fontWeight(.semibold)
+                                .matchedGeometryEffect(id: "animation2", in: animation)
                         })
                         .padding()
                         Spacer()
@@ -42,8 +43,10 @@ struct ContentView: View {
                         Button(action: {buttonAction()}) {
                             ZStack {
                                 Text("Open")
-                                    .padding()
+                                    .fixedSize(horizontal: true, vertical: true)
+                                    .matchedGeometryEffect(id: "animation2", in: animation)
                             }
+                            .padding()
                         }
                         .background {
                             RoundedRectangle(cornerRadius: 10)
