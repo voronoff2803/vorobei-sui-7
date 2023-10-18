@@ -8,16 +8,67 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Namespace private var animation
+    @State private var isOpened = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            if isOpened == true {
+                VStack {
+                    HStack {
+                        Button(action: {buttonAction()}, label: {
+                            Image(systemName: "arrowshape.left.fill")
+                            Text("Back")
+                                .fontWeight(.semibold)
+                        })
+                        .padding()
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .matchedGeometryEffect(id: "animation", in: animation)
+                .frame(width: 250, height: 400)
+            }
+            if isOpened == false {
+                VStack {
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {buttonAction()}) {
+                            ZStack {
+                                Text("Open")
+                                    .padding()
+                            }
+                        }
+                        .background {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(.blue)
+                                .matchedGeometryEffect(id: "animation", in: animation)
+                            
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        
+                    }
+                }
+            }
         }
-        .padding()
+    }
+    
+    func buttonAction() {
+        withAnimation(.smooth) {
+            isOpened.toggle()
+        }
     }
 }
+
+
+
 
 #Preview {
     ContentView()
